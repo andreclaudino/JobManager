@@ -1,0 +1,49 @@
+{
+	// Use o IntelliSense para saber mais sobre os atributos possíveis.
+	// Focalizar para exibir as descrições dos atributos existentes.
+	// Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "entrypoint",
+			"cargo": {
+				"args": [
+					"build",
+					"--bin=entrypoint",
+					"--package=entrypoint"
+				],
+				"filter": {
+					"name": "entrypoint",
+					"kind": "bin"
+				}
+			},
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"env": {
+				"BROKER_URI": "amqp://guest:guest@$localhost:5672",
+				"REDIS_URL": "redis://:password@localhost:6379"
+			}
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug unit tests in executable 'entrypoint'",
+			"cargo": {
+				"args": [
+					"test",
+					"--no-run",
+					"--bin=entrypoint",
+					"--package=entrypoint"
+				],
+				"filter": {
+					"name": "entrypoint",
+					"kind": "bin"
+				}
+			},
+			"args": [],
+			"cwd": "${workspaceFolder}"
+		}
+	]
+}
