@@ -7,8 +7,11 @@ use super::publish_response::PublishRequest;
 #[derive(Serialize, Deserialize, Default)]
 pub struct TaskInfo {
 	pub task_status: TaskStatus,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub submited_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub started_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub finished_at: Option<DateTime<Utc>>,
 }
 

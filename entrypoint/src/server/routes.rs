@@ -11,7 +11,7 @@ use super::{
 
 pub fn make_task_scope() -> Scope {
     web::scope("/task")
-        .service(web::resource("/{task_function_name}").route(web::post().to(send_task)))
+        .service(web::resource("/function/{task_function_name}").route(web::post().to(send_task)))
         .service(web::resource("/{task_id}").route(web::get().to(get_task)))
         
 }
