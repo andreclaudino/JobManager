@@ -66,12 +66,14 @@ impl DatabaseClient {
                     }
                 },
                 Some(TaskStatusCode::Succeed) => {
-                    let content: Option<Vec<u8>> = read_key(&mut connection, task_id, "content").await?;
+                    let content: Option<String> = read_key(&mut connection, task_id, "content").await?;
+                    let result = serde_json::from_str(&content.unwrap_or_default())?;
+
                     let submited_at = read_date_key(&mut connection, task_id, "submited_at").await?;
                     let started_at = read_date_key(&mut connection, task_id, "started_at").await?;
                     
                     TaskInfo {
-                        task_status: TaskStatus::Succeed(content.unwrap_or_default()),
+                        task_status: TaskStatus::Succeed{result: result},
                         submited_at,
                         started_at,
                         ..TaskInfo::default()
@@ -83,7 +85,7 @@ impl DatabaseClient {
                     let started_at = read_date_key(&mut connection, task_id, "started_at").await?;
                     
                     TaskInfo {
-                        task_status: TaskStatus::Failed(error.unwrap_or_default()),
+                        task_status: TaskStatus::Failed{message: error.unwrap_or_default()},
                         submited_at,
                         started_at,
                         ..TaskInfo::default()

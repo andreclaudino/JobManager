@@ -18,7 +18,7 @@ pub struct TaskInfo {
 impl TaskInfo {
 	pub fn maformed() -> Self {
 		Self {
-			task_status: TaskStatus::Failed("Cant parse returned value".to_owned()),
+			task_status: TaskStatus::Failed{message: "Cant parse returned value".to_owned()},
 			..Self::default()
 		}
 	}}
@@ -39,8 +39,8 @@ impl From<PublishRequest> for TaskInfo {
 pub enum TaskStatus {
     Pending,
     Waiting,
-	Succeed(Vec<u8>),
-    Failed(String),
+	Succeed{result: serde_json::Value},
+    Failed{message: String},
     NotFound,
 }
 
@@ -94,8 +94,8 @@ impl Into<TaskStatusCode> for TaskStatus {
         match self {
             Self::Pending => TaskStatusCode::Pending,
             Self::Waiting => TaskStatusCode::Waiting,
-            Self::Succeed(_) => TaskStatusCode::Succeed,
-            Self::Failed(_) => TaskStatusCode::Failed,
+            Self::Succeed{..} => TaskStatusCode::Succeed,
+            Self::Failed{..} => TaskStatusCode::Failed,
             Self::NotFound => TaskStatusCode::Invalid,
         }
     }

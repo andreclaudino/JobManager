@@ -13,11 +13,11 @@ Job Manager is a tool to submit tasks on queues, and orchestrate then on kuberne
 Entrypoint receives a task submit over http, submiting a tasks is as simple as a POST http request with json body. The payload to your queue function should be passed via an object on `parameters` property.
 
 ```http
-POST /task/{task name}
+POST /task/function/{task name}
 Content-Type: application/json
 
 {
-	parameters: {
+	"parameters": {
 		"parameter1": "value1",
 		"parameter2": 2,
 		"array_parameter": [1, 2, 3]

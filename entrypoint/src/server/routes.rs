@@ -55,6 +55,6 @@ pub async fn get_task(database_client_: web::Data<DatabaseClient>, path_paramete
             .await
             .map_err(InternalError::from)?;
     
-    let response = HttpResponse::Created().json(&task_info);
+    let response = HttpResponse::Ok().json(&task_info);
     Ok(response)
 }
