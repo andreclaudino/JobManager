@@ -4,6 +4,8 @@ const BROKER_URI_ENV: &str = "BROKER_URI";
 const DEFAULT_EXCHANGE_NAME: &str = "job-manager";
 const EXCHANGE_NAME_ENV: &str = "EXCHANGE_NAME";
 
+const DATABASE_URI: &str = "DATABSE_URI";
+
 const DEFAULT_TIMEOUT_ENV: &str = "DEFAULT_TIMEOUT";
 const DEFAULT_TIMEOUT: u32 = 5;
 
@@ -25,6 +27,10 @@ pub struct Arguments {
 	/// Exchange name to publish
 	#[arg(long, default_value=DEFAULT_EXCHANGE_NAME, env=EXCHANGE_NAME_ENV)]
 	pub exchange_name: String,
+
+	/// The AMQP broker uri
+	#[arg(long, env=DATABASE_URI)]
+	pub database_uri: String,
 
 	/// Default timeout (in seconds) to wait for a response
 	#[arg(long, default_value_t=DEFAULT_TIMEOUT, env=DEFAULT_TIMEOUT_ENV)]
